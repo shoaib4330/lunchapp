@@ -5,8 +5,8 @@
 
     <groupId>com.venturedive</groupId>
     <artifactId>rotikhilao</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>0.0.2-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <name>rotikhilao</name>
     <description>Project to cater ordering of lunch in organizations</description>
