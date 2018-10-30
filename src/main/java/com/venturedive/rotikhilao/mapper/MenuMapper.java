@@ -2,7 +2,6 @@ package com.venturedive.rotikhilao.mapper;
 
 import com.venturedive.rotikhilao.DTO.FoodItemDTO;
 import com.venturedive.rotikhilao.model.FoodItem;
-import com.venturedive.rotikhilao.pojo.MenuResponse;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

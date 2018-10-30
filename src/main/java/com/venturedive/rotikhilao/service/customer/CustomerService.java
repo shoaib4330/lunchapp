@@ -16,12 +16,10 @@ import com.venturedive.rotikhilao.model.FoodItem;
 import com.venturedive.rotikhilao.model.OfficeBoy;
 import com.venturedive.rotikhilao.model.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.pojo.MenuResponse;
+import com.venturedive.rotikhilao.DTO.MenuDTO;
 import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.pojo.UserProfile;
-import com.venturedive.rotikhilao.repository.CustomerRepository;
 import com.venturedive.rotikhilao.request.OrderWrapper;
-import com.venturedive.rotikhilao.service.util.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -161,41 +159,41 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public MenuResponse displayMenu(Long vendorId) throws Exception {
+    public MenuDTO displayMenu(Long vendorId) throws Exception {
 
         return serviceUtil.displayMenu(vendorId);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public MenuResponse filterMenuByPrice(Integer fromPrice, Integer toPrice) throws Exception {
+    public MenuDTO filterMenuByPrice(Integer fromPrice, Integer toPrice) throws Exception {
 
         validatePriceRange(fromPrice, toPrice);
 
         List<FoodItem> foodItems = new FoodItemDAO().findAllItemsInPriceRange(fromPrice, toPrice);
 
-        MenuResponse menuResponse = new MenuResponse();
+        MenuDTO menuDTO = new MenuDTO();
 
         List<FoodItemDTO> wrappedFoodItems = MenuMapper.wrapFoodItems(foodItems);
 
-        menuResponse.setItems(wrappedFoodItems);
+        menuDTO.setItems(wrappedFoodItems);
 
-        return menuResponse;
+        return menuDTO;
 
     }
 
     @Override
-    public MenuResponse showMenu() {
+    public MenuDTO showMenu() {
 
         List<FoodItem> foodItems =  foodItemDAO.showMenu();
 
-        MenuResponse menuResponse = new MenuResponse();
+        MenuDTO menuDTO = new MenuDTO();
 
         List<FoodItemDTO> wrappedFoodItems = MenuMapper.wrapFoodItems(foodItems);
 
-        menuResponse.setItems(wrappedFoodItems);
+        menuDTO.setItems(wrappedFoodItems);
 
-        return menuResponse;
+        return menuDTO;
     }
 
     @Override

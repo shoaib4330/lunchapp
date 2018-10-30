@@ -43,6 +43,7 @@ public class FoodItem implements Serializable {
     @JsonIgnore
     private List<OrderItem> items = new ArrayList<>();
 
+    private Integer quantity;
 
     @Override
     public boolean equals(Object o) {
