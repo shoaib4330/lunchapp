@@ -1,9 +1,6 @@
 package com.venturedive.rotikhilao.model.entitiy;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,22 +8,29 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Table(name = "vendor")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "lb_menu")
-public class Menu {
+@NoArgsConstructor
+@Builder
+public class Vendor {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_vendorId")
-    private Vendor vendor;
+    @Column(name="vendor_name")
+    private String name;
 
-    private List<FoodItem> foodItems;
+    @OneToMany(
+            mappedBy = "journey",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private List<Menu> menus;
 
     @CreationTimestamp
     private LocalDateTime dtCreated;

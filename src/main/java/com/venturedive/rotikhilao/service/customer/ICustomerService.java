@@ -1,8 +1,7 @@
 package com.venturedive.rotikhilao.service.customer;
 
-import com.venturedive.rotikhilao.model.Order;
+import com.venturedive.rotikhilao.model.entitiy.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.DTO.MenuDTO;
 import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.pojo.UserProfile;
 import com.venturedive.rotikhilao.request.OrderWrapper;
@@ -18,12 +17,6 @@ public interface ICustomerService {
     BooleanResponse cancelOrder(Long customerId, Long orderId) throws Exception;
 
     BooleanResponse updateOrder(Long customerId, Long orderId, OrderWrapper request) throws Exception;
-
-    MenuDTO displayMenu(Long vendorId) throws Exception;
-
-    MenuDTO filterMenuByPrice(Integer fromPrice, Integer toPrice) throws Exception;
-
-    MenuDTO showMenu();
 
     UserProfile viewProfile(Long userId) throws Exception;
 }

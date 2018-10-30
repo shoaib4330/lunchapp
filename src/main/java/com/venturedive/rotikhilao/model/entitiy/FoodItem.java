@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.model;
+package com.venturedive.rotikhilao.model.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -24,7 +24,7 @@ public class FoodItem implements Serializable {
     private String title;
 
     @Column(name="price")
-    private Integer price;
+    private Integer unitPrice;
 
     @Column(name="vendor_id")
     private Long vendorId;

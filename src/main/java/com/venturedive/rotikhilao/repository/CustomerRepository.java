@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.repository;
 
-import com.venturedive.rotikhilao.model.Customer;
+import com.venturedive.rotikhilao.model.entitiy.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

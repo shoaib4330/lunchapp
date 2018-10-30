@@ -1,7 +1,7 @@
 package com.venturedive.rotikhilao.DAO.FoodItem;
 
 import com.venturedive.rotikhilao.enums.FoodItemStatus;
-import com.venturedive.rotikhilao.model.FoodItem;
+import com.venturedive.rotikhilao.model.entitiy.FoodItem;
 import com.venturedive.rotikhilao.repository.FoodItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

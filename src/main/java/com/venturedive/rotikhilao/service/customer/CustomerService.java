@@ -10,13 +10,11 @@ import com.venturedive.rotikhilao.DAO.order.OrderDAO;
 import com.venturedive.rotikhilao.DTO.FoodItemDTO;
 import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
 import com.venturedive.rotikhilao.enums.OrderStatus;
-import com.venturedive.rotikhilao.mapper.MenuMapper;
-import com.venturedive.rotikhilao.model.Customer;
-import com.venturedive.rotikhilao.model.FoodItem;
-import com.venturedive.rotikhilao.model.OfficeBoy;
-import com.venturedive.rotikhilao.model.Order;
+import com.venturedive.rotikhilao.model.entitiy.Customer;
+import com.venturedive.rotikhilao.model.entitiy.FoodItem;
+import com.venturedive.rotikhilao.model.entitiy.OfficeBoy;
+import com.venturedive.rotikhilao.model.entitiy.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.DTO.MenuDTO;
 import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.pojo.UserProfile;
 import com.venturedive.rotikhilao.request.OrderWrapper;
@@ -31,9 +29,6 @@ import java.util.List;
 @Service
 public class CustomerService implements ICustomerService {
 
-    //TODO: add validation checks
-    @Autowired
-    private ServiceUtil serviceUtil;
 
     @Autowired
     private ICustomerDAO customerDAO;
@@ -107,7 +102,7 @@ public class CustomerService implements ICustomerService {
 
         for (FoodItemDTO item : foodList){
 
-            FoodItem foodItem = foodItemDAO.fetchFoodItemById(item.getItemId());
+            FoodItem foodItem = foodItemDAO.fetchFoodItemById(item.getId());
             order.addFoodItem(foodItem, item.getQuantity());
         }
         orderDAO.saveOrder(order);
@@ -158,43 +153,6 @@ public class CustomerService implements ICustomerService {
 
     }
 
-    @Override
-    public MenuDTO displayMenu(Long vendorId) throws Exception {
-
-        return serviceUtil.displayMenu(vendorId);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public MenuDTO filterMenuByPrice(Integer fromPrice, Integer toPrice) throws Exception {
-
-        validatePriceRange(fromPrice, toPrice);
-
-        List<FoodItem> foodItems = new FoodItemDAO().findAllItemsInPriceRange(fromPrice, toPrice);
-
-        MenuDTO menuDTO = new MenuDTO();
-
-        List<FoodItemDTO> wrappedFoodItems = MenuMapper.wrapFoodItems(foodItems);
-
-        menuDTO.setItems(wrappedFoodItems);
-
-        return menuDTO;
-
-    }
-
-    @Override
-    public MenuDTO showMenu() {
-
-        List<FoodItem> foodItems =  foodItemDAO.showMenu();
-
-        MenuDTO menuDTO = new MenuDTO();
-
-        List<FoodItemDTO> wrappedFoodItems = MenuMapper.wrapFoodItems(foodItems);
-
-        menuDTO.setItems(wrappedFoodItems);
-
-        return menuDTO;
-    }
 
     @Override
     public UserProfile viewProfile(Long userId) throws Exception {

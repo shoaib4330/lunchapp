@@ -3,7 +3,7 @@ package com.venturedive.rotikhilao.service.google;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
 import com.venturedive.rotikhilao.enums.UserType;
-import com.venturedive.rotikhilao.model.Customer;
+import com.venturedive.rotikhilao.model.entitiy.Customer;
 import com.venturedive.rotikhilao.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

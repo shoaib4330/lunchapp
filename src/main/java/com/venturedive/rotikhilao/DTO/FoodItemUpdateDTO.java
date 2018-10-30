@@ -1,8 +1,7 @@
 package com.venturedive.rotikhilao.DTO;
 
-import com.venturedive.rotikhilao.model.OrderItem;
+import com.venturedive.rotikhilao.model.entitiy.OrderItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FoodItemUpdateDTO {

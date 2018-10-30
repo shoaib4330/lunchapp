@@ -1,0 +1,13 @@
+package com.venturedive.rotikhilao.mapper;
+
+import com.venturedive.rotikhilao.DTO.FoodItemDTO;
+import com.venturedive.rotikhilao.model.entitiy.FoodItem;
+import org.mapstruct.Mapper;
+
+import java.util.List;
+
+@Mapper(componentModel = "spring")
+public interface FoodItemMapper {
+    FoodItemDTO mapToDto(FoodItem foodItem);
+    List<FoodItemDTO> mapToDtoList(List<FoodItem> foodItems);
+}

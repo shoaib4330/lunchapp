@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.DAO.customer;
 
-import com.venturedive.rotikhilao.model.Customer;
+import com.venturedive.rotikhilao.model.entitiy.Customer;
 
 public interface ICustomerDAO {
 

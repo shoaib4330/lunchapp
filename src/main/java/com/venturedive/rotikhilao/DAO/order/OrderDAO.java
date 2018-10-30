@@ -1,7 +1,7 @@
 package com.venturedive.rotikhilao.DAO.order;
 
 import com.venturedive.rotikhilao.enums.OrderStatus;
-import com.venturedive.rotikhilao.model.Order;
+import com.venturedive.rotikhilao.model.entitiy.Order;
 import com.venturedive.rotikhilao.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

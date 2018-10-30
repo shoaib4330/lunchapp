@@ -1,9 +1,8 @@
 package com.venturedive.rotikhilao.service;
 
 import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
-import com.venturedive.rotikhilao.DTO.MenuDTO;
+import com.venturedive.rotikhilao.DTO.FoodItemDTO;
 import com.venturedive.rotikhilao.DTO.VendorDTO;
-import com.venturedive.rotikhilao.model.Vendor;
 
 import java.util.List;
 
@@ -17,5 +16,5 @@ public interface IVendorService {
 
     List<VendorDTO> getAllVendors();
 
-    List<MenuDTO> getAllMenusByVendorId(Long vendorId);
+    List<FoodItemDTO> getAllFoodItemsByVendor(Long vendorId);
 }

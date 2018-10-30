@@ -1,14 +1,18 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.model.FoodItem;
+import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
+import com.venturedive.rotikhilao.DTO.FoodItemDTO;
+import com.venturedive.rotikhilao.DTO.VendorDTO;
+import com.venturedive.rotikhilao.model.entitiy.FoodItem;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.DTO.MenuDTO;
 import com.venturedive.rotikhilao.pojo.ResponseList;
+import com.venturedive.rotikhilao.service.vendor.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/vendors")
@@ -21,34 +25,28 @@ public class VendorController {
     // 5. revenue related?
 
     @Autowired
-    private IVendorService vendorService;
+    private VendorService vendorService;
 
-    @GetMapping(value = "/{vendorId}/menu")
-    public MenuDTO vendorMenu(@PathVariable(value="vendorId") Long vendorId ) throws Exception {
+    @GetMapping(value = "/{vendorId}/foodItems")
+    public List<FoodItemDTO> getFoodItemsByVendor(@PathVariable(value="vendorId") Long vendorId ) throws Exception {
         // should be visible for customers as well
-        return vendorService.retrieveVendorMenu(vendorId);
+        return vendorService.getAllFoodItemsByVendor(vendorId);
     }
 
-
-    @PostMapping(value = "/{vendorId}/menu")
-    public MenuDTO createMenu(@RequestBody @NotNull @Valid ResponseList<FoodItem> items, @RequestParam(value="vendorId") Long vendorId) throws Exception {
-        return vendorService.createMenu(items, vendorId);
+    @GetMapping(value = "/{vendorId}")
+    public VendorDTO getVendorById(@PathVariable(value="vendorId") Long vendorId ){
+        return vendorService.getVendorById(vendorId);
     }
 
-    @PatchMapping(value = "/{vendorId}/menu/{itemId}")
-    public BooleanResponse updateMenuItem(@RequestBody @NotNull @Valid FoodItem foodItem,
-                                          @PathVariable(name="vendorId") Long vendorId,
-                                          @PathVariable(name="itemId") Long itemId) throws Exception {
-        return vendorService.updateMenu(vendorId, itemId, foodItem);
+    @DeleteMapping(value = "/{vendorId}")
+    public void deleteVendorById(@PathVariable(value="vendorId") Long vendorId ){
+        vendorService.deleteVendor(vendorId);
     }
 
-    @PatchMapping(value="/{vendorId}/menu/{itemId}/delete")
-    public BooleanResponse deleteMenuItem(@PathVariable(name="vendorId") Long vendorId,
-                                          @PathVariable(name="itemId") Long itemId) throws Exception {
-
-        log.info("DELETE MENU ITEM REQUEST RECEIVED");
-
-        return vendorService.deleteMenuItem(vendorId, itemId);
+    @PostMapping(value = "/add-vendor")
+    public void createVendor(@RequestBody CreateVendorDTO vendorDTO){
+        vendorService.createVendor(vendorDTO);
     }
+
 
 }

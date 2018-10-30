@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.model;
+package com.venturedive.rotikhilao.model.entitiy;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

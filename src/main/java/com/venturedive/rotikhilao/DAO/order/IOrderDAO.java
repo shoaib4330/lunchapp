@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.DAO.order;
 
-import com.venturedive.rotikhilao.model.Order;
+import com.venturedive.rotikhilao.model.entitiy.Order;
 
 import java.util.List;
 

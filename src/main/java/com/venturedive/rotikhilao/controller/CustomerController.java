@@ -1,8 +1,7 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.model.Order;
+import com.venturedive.rotikhilao.model.entitiy.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.DTO.MenuDTO;
 import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.pojo.UserProfile;
 import com.venturedive.rotikhilao.request.OrderWrapper;
@@ -81,39 +80,5 @@ public class CustomerController {
         return customerService.updateOrder(customerId,orderId, request);
     }
 
-
-    // TODO:
-    // 1. View menu
-    // 2. Filter menu items
-    // 3.
-
-    @GetMapping(value = "/vendors/{vendorId}/menu")
-    public MenuDTO displayMenu(@PathVariable(value="vendorId") Long vendorId ) throws Exception {
-
-        log.info("DISPLAY MENU REQUEST RECEIVED");
-        return customerService.displayMenu(vendorId);
-
-    }
-
-
-    @GetMapping(value ="/vendors/menu")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Fetch food items by filtering on price")
-    public MenuDTO filterMenuByPrice(@RequestParam(value = "fromPrice") Integer fromPrice,
-                                     @RequestParam(value="toPrice") Integer toPrice) throws Exception {
-
-        return customerService.filterMenuByPrice(fromPrice, toPrice);
-
-
-    }
-
-    @GetMapping(value = "/dailymenu")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get daily menu from all vendors")
-    @CrossOrigin(origins = {"http://192.168.106.253.xip.io:3000", "http://localhost:3000"})
-    public MenuDTO showMenu(){
-
-        return customerService.showMenu();
-    }
 
 }

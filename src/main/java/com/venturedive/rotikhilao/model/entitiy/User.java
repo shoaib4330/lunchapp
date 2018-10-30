@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.model;
+package com.venturedive.rotikhilao.model.entitiy;
 
 import com.venturedive.rotikhilao.enums.UserType;
 import com.venturedive.rotikhilao.model.audit.DateAudit;

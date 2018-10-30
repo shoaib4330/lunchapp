@@ -11,8 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FoodItemDTO {
-
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer quantity;
 
@@ -20,16 +18,10 @@ public class FoodItemDTO {
     private Integer unitPrice;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Integer totalPrice;
+    private Long id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Long itemId;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Long orderItemId;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Long vendor;
+    private Long vendorId;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String title;

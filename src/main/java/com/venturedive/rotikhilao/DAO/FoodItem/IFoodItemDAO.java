@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.DAO.FoodItem;
 
-import com.venturedive.rotikhilao.model.FoodItem;
+import com.venturedive.rotikhilao.model.entitiy.FoodItem;
 
 import java.util.List;
 
