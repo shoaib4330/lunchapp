@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.model.entitiy;
+package com.venturedive.rotikhilao.entitiy;
 
 import java.util.Arrays;
 import java.util.Collection;

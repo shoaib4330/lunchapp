@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.service;
+package com.venturedive.rotikhilao.service.vendor;
 
 import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
 import com.venturedive.rotikhilao.DTO.FoodItemDTO;

@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.model.entitiy.Order;
+import com.venturedive.rotikhilao.entitiy.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
 import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.pojo.UserProfile;
@@ -31,7 +31,6 @@ public class CustomerController {
     @GetMapping("/profile/{userId}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get user profile")
-    @CrossOrigin(origins = "http://localhost:3000")
     public UserProfile viewProfile(@PathVariable(name= "userId") Long userId) throws Exception {
 
         return customerService.viewProfile(userId);
@@ -54,7 +53,6 @@ public class CustomerController {
     }
 
     @PostMapping("/orders")
-    @CrossOrigin(origins = {"http://192.168.106.253.xip.io:3000", "http://localhost:3000"})
     public BooleanResponse orderFood(@RequestBody @Valid @NotNull OrderWrapper request) throws Exception {
 
         log.info("ORDER FOOD REQUEST RECEIVED");

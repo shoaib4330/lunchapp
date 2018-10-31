@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.repository;
 
-import com.venturedive.rotikhilao.model.entitiy.User;
+import com.venturedive.rotikhilao.entitiy.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

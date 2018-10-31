@@ -3,15 +3,10 @@ package com.venturedive.rotikhilao.controller;
 import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
 import com.venturedive.rotikhilao.DTO.FoodItemDTO;
 import com.venturedive.rotikhilao.DTO.VendorDTO;
-import com.venturedive.rotikhilao.model.entitiy.FoodItem;
-import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.service.vendor.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController

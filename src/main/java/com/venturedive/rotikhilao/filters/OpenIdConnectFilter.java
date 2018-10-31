@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.venturedive.rotikhilao.model.entitiy.OpenIdConnectUserDetails;
+import com.venturedive.rotikhilao.entitiy.OpenIdConnectUserDetails;
 import com.venturedive.rotikhilao.service.google.IGoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

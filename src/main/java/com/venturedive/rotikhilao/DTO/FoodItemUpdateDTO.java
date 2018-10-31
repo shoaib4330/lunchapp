@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.DTO;
 
-import com.venturedive.rotikhilao.model.entitiy.OrderItem;
+import com.venturedive.rotikhilao.entitiy.OrderItem;
 
 import java.util.List;
 

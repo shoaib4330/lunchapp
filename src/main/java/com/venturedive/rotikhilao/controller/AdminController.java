@@ -1,8 +1,7 @@
 package com.venturedive.rotikhilao.controller;
 
 import com.venturedive.rotikhilao.DTO.OfficeBoyDTO;
-import com.venturedive.rotikhilao.model.entitiy.OfficeBoy;
-import com.venturedive.rotikhilao.model.entitiy.Order;
+import com.venturedive.rotikhilao.entitiy.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
 import com.venturedive.rotikhilao.pojo.ResponseList;
 import com.venturedive.rotikhilao.service.admin.IAdminService;

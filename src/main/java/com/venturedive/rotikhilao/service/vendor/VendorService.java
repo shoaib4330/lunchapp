@@ -6,11 +6,10 @@ import com.venturedive.rotikhilao.DTO.VendorDTO;
 import com.venturedive.rotikhilao.exception.ApplicationException;
 import com.venturedive.rotikhilao.mapper.FoodItemMapper;
 import com.venturedive.rotikhilao.mapper.VendorMapper;
-import com.venturedive.rotikhilao.model.entitiy.FoodItem;
-import com.venturedive.rotikhilao.model.entitiy.Vendor;
+import com.venturedive.rotikhilao.entitiy.FoodItem;
+import com.venturedive.rotikhilao.entitiy.Vendor;
 import com.venturedive.rotikhilao.repository.FoodItemRepository;
 import com.venturedive.rotikhilao.repository.VendorRepository;
-import com.venturedive.rotikhilao.service.IVendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

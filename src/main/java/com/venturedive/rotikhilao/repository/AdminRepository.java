@@ -1,6 +1,5 @@
 package com.venturedive.rotikhilao.repository;
 
-import com.venturedive.rotikhilao.model.entitiy.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -2,11 +2,17 @@ package com.venturedive.rotikhilao.service.google;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
+import com.venturedive.rotikhilao.entitiy.Company;
+import com.venturedive.rotikhilao.entitiy.Customer;
+import com.venturedive.rotikhilao.entitiy.User;
 import com.venturedive.rotikhilao.enums.UserType;
-import com.venturedive.rotikhilao.model.entitiy.Customer;
+import com.venturedive.rotikhilao.exception.ApplicationException;
+import com.venturedive.rotikhilao.repository.CompanyRepository;
 import com.venturedive.rotikhilao.repository.CustomerRepository;
+import com.venturedive.rotikhilao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Optional;
@@ -15,81 +21,55 @@ import java.util.Optional;
 public class GoogleService implements IGoogleService {
 
     @Autowired
+    CompanyRepository companyRepository;
+
+    @Autowired
     CustomerRepository customerRepository;
 
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-
     @Override
+    @Transactional
     public String saveNewUser(GoogleIdToken.Payload payload) {
+        Company company = companyRepository.findByEmailDomain(payload.getHostedDomain())
+                .orElseThrow(()-> new ApplicationException("Company not found with given domain"));
 
-        String userId = payload.getSubject();
-        String name = (String) payload.get("name");
-        String pictureUrl = (String) payload.get("picture");
-        String locale = (String) payload.get("locale");
-        String familyName = (String) payload.get("family_name");
-        String givenName = (String) payload.get("given_name");
+        Customer customer = Customer.builder().company(company).customerName((String) payload.get("name"))
+                .email(payload.getEmail()).imageUrl((String) payload.get("picture"))
+                .build();
+        customerRepository.save(customer);
 
-        Customer customer = new Customer();
-        customer.setUserName(payload.getEmail());
-        customer.setName(name);
-        customer.setImageUrl(pictureUrl);
-
-        customer = customerRepository.save(customer);
-
-        return tokenProvider.generateToken(customer.getId());
+        return tokenProvider.generateToken(customer.getCustomerId());
 
     }
 
     @Override
     public Boolean checkUserExistence(GoogleIdToken.Payload payload) {
 
-        if (customerRepository.existsByUserName(payload.getEmail())){
+        if (customerRepository.findByEmail(payload.getEmail()).isPresent()){
             return true;
         }
-
         return false;
     }
 
     @Override
-    public String saveNewUser(Map<String, Object> map) {
-
-        String name = (String) map.get("name");
-        String pictureUrl = (String) map.get("picture");
-
-        Customer customer = new Customer();
-        customer.setUserName((String) map.get("email"));
-        customer.setName(name);
-        customer.setImageUrl(pictureUrl);
-        customer.setRole(UserType.CUSTOMER);
-
-        customer = customerRepository.save(customer);
-
-        return tokenProvider.generateToken(customer.getId());
-    }
-
-    @Override
+    @Transactional
     public String checkUserExistence(Map<String, Object> map) throws Exception {
 
-        String domainName = (String) map.get("hd");
-
-        if (domainName == null || !domainName.equals("venturedive.com")){
-            System.out.println("Please use venturedive email address to login");
+        if (!companyRepository.findByEmailDomain((String) map.get("hd")).isPresent()){
             return "UNAUTHORIZED";
-
         }
 
-        Optional<Customer> customerW = customerRepository.findByUserName((String) map.get("email"));
-
-        Customer customer = null;
-        if (customerW.isPresent()){
-            customer = customerW.get();
-
-            return tokenProvider.generateToken(customer.getId());
+        Optional<Customer> customer = customerRepository.findByEmail((String) map.get("email"));
+        if (customer.isPresent()){
+            return tokenProvider.generateToken(customer.get().getCustomerId());
         }
-
-        return saveNewUser(map);
-
+        Customer newCustomer = Customer.builder().customerName((String) map.get("name"))
+                .imageUrl((String) map.get("picture"))
+                .email((String) map.get("email"))
+                .build();
+        customerRepository.save(newCustomer);
+        return tokenProvider.generateToken(newCustomer.getCustomerId());
     }
 }

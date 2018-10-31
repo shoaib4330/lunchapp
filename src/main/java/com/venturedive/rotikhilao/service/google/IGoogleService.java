@@ -10,7 +10,5 @@ public interface IGoogleService {
 
     Boolean checkUserExistence(GoogleIdToken.Payload payload);
 
-    String saveNewUser(Map <String, Object> map);
-
     String checkUserExistence(Map <String, Object> map) throws Exception;
 }
