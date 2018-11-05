@@ -47,7 +47,7 @@ public class Order implements Serializable{
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    private List<FoodItem> foodItems;
+    private List<OrderItem> orderItems;
 
     @CreationTimestamp
     private LocalDateTime dtCreated;

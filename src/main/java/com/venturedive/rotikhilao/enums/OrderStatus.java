@@ -1,10 +1,10 @@
 package com.venturedive.rotikhilao.enums;
 
 public enum OrderStatus {
-    PREPARING((short) 1),
-    DELIVERED((short) 2),
-    CANCELLED((short) 3),
-    LOCKED((short) 4);
+    PENDING((short) 1),
+    ACCEPTED((short) 2),
+    DELIVERED((short) 3),
+    CANCELLED((short) 4);
 
     private Short value;
 

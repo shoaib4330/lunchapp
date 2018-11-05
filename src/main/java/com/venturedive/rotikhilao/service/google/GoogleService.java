@@ -58,7 +58,7 @@ public class GoogleService implements IGoogleService {
     public String checkUserExistence(Map<String, Object> map) throws Exception {
 
         if (!companyRepository.findByEmailDomain((String) map.get("hd")).isPresent()){
-            return "UNAUTHORIZED";
+            new ApplicationException("Company not found with given domain");
         }
 
         Optional<Customer> customer = customerRepository.findByEmail((String) map.get("email"));

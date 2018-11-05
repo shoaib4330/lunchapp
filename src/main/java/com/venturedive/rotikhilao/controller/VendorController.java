@@ -27,17 +27,14 @@ public class VendorController {
         // should be visible for customers as well
         return vendorService.getAllFoodItemsByVendor(vendorId);
     }
-
     @GetMapping(value = "/{vendorId}")
     public VendorDTO getVendorById(@PathVariable(value="vendorId") Long vendorId ){
         return vendorService.getVendorById(vendorId);
     }
-
     @DeleteMapping(value = "/{vendorId}")
     public void deleteVendorById(@PathVariable(value="vendorId") Long vendorId ){
         vendorService.deleteVendor(vendorId);
     }
-
     @PostMapping(value = "/add-vendor")
     public void createVendor(@RequestBody CreateVendorDTO vendorDTO){
         vendorService.createVendor(vendorDTO);

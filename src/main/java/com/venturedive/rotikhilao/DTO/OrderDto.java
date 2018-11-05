@@ -12,6 +12,6 @@ public class OrderDto {
     private long id;
     private Integer bill;
     private String customerName;
-    private String orderStatus;
-    private List<FoodItem> foodItems;
+    private Long orderStatus;
+    private List<FoodItemDTO> foodItems;
 }
