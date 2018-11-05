@@ -1,7 +1,8 @@
 package com.venturedive.rotikhilao.DTO;
 
-import com.venturedive.rotikhilao.entitiy.Company;
+import lombok.Data;
 
+@Data
 public class CustomerDto {
     private Long customerId;
     private String customerName;

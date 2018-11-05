@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user")
 @Data
-@Builder
 @EqualsAndHashCode()
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
@@ -20,7 +19,7 @@ public abstract class User {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name="user_name")

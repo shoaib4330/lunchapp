@@ -1,5 +1,6 @@
 package com.venturedive.rotikhilao.DTO;
 
+import com.venturedive.rotikhilao.entitiy.OfficeBoy;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,4 +11,5 @@ import java.util.List;
 public class CreateOrderDto {
     private Long customerId;
     private List<Long> foodItems;
+    private Long officeBoyId;
 }

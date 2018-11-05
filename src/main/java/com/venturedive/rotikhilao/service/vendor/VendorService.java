@@ -20,10 +20,13 @@ public class VendorService implements IVendorService {
 
     @Autowired
     FoodItemRepository foodItemRepository;
+
     @Autowired
     VendorRepository vendorRepository;
+
     @Autowired
     private VendorMapper vendorMapper;
+
     @Autowired
     private FoodItemMapper foodItemMapper;
 
