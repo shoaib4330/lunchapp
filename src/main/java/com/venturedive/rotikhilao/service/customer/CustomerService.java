@@ -25,7 +25,7 @@ public class CustomerService implements ICustomerService {
     CompanyRepository companyRepository;
 
     @Override
-    public CustomerDto getCustomerById(Long customerId) {
+    public CustomerDto getCustomerById(long customerId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(()-> new ApplicationException("Customer not found with given id"));
         return customerMapper.mapToDto(customer);
@@ -37,11 +37,4 @@ public class CustomerService implements ICustomerService {
         return customerMapper.mapToDtoList(customers);
     }
 
-    @Override
-    public List <CustomerDto> getAllCustomersByCompany(Long companyId) {
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(()->new ApplicationException("Company not found with given id"));
-        List<Customer> customers = customerRepository.findByCompany(company);
-        return customerMapper.mapToDtoList(customers);
-    }
 }

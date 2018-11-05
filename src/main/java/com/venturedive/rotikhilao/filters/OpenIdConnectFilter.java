@@ -1,15 +1,9 @@
 package com.venturedive.rotikhilao.filters;
 
-import java.io.IOException;
-import java.net.URL;
-import java.security.interfaces.RSAPublicKey;
-import java.util.Date;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.auth0.jwk.Jwk;
+import com.auth0.jwk.JwkProvider;
+import com.auth0.jwk.UrlJwkProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.venturedive.rotikhilao.entitiy.OpenIdConnectUserDetails;
 import com.venturedive.rotikhilao.service.google.IGoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +22,14 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
-import com.auth0.jwk.Jwk;
-import com.auth0.jwk.JwkProvider;
-import com.auth0.jwk.UrlJwkProvider;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URL;
+import java.security.interfaces.RSAPublicKey;
+import java.util.Date;
+import java.util.Map;
 
 public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter {
 
