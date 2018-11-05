@@ -41,9 +41,9 @@ public class VendorService implements IVendorService {
         Vendor vendor = vendorRepository.findByName(loginDto.getUsername())
                 .orElseThrow(()-> new ApplicationException("Vendor does not exist with username: "+ loginDto.getUsername()));
         UserTokenResponseDto userTokenResponseDto;
-        if(bCryptPasswordEncoder.matches(vendor.getPassword(),loginDto.getPassword()))
+        if(bCryptPasswordEncoder.matches(loginDto.getPassword(),vendor.getPassword()))
         {
-            userTokenResponseDto = UserTokenResponseDto.builder().userId(vendor.getId())
+            return UserTokenResponseDto.builder().userId(vendor.getId())
                     .jwtToken(tokenProvider.generateToken(vendor.getId()))
                     .isAuthorized(true)
                     .name(vendor.getName())
@@ -53,18 +53,19 @@ public class VendorService implements IVendorService {
         {
             throw new ApplicationException("Invalid Password");
         }
-        return UserTokenResponseDto.builder().isAuthorized(false).build();
+
     }
 
     @Override
     public VendorDTO createVendor(CreateVendorDTO createVendorDTO) {
         validateCreateVendor(createVendorDTO);
 
-        vendorRepository.findByName(createVendorDTO.getName())
-                .orElseThrow(()-> new ApplicationException("Vendor already exist with name: " + createVendorDTO.getName()));
-        vendorRepository.findByName(createVendorDTO.getPhoneNumber())
-                .orElseThrow(()-> new ApplicationException("Vendor already exist with given PhoneNumber: " + createVendorDTO.getPhoneNumber()));
-
+        if(vendorRepository.findByName(createVendorDTO.getName()).isPresent()) {
+            throw new ApplicationException("Vendor already exist with name: " + createVendorDTO.getName());
+        }
+        if(vendorRepository.findByName(createVendorDTO.getPhoneNumber()).isPresent()) {
+           throw new ApplicationException("Vendor already exist with given PhoneNumber: " + createVendorDTO.getPhoneNumber());
+        }
         Vendor vendor = Vendor.builder().name(createVendorDTO.getName())
                 .address(createVendorDTO.getAddress())
                 .phoneNumber(createVendorDTO.getPhoneNumber())
