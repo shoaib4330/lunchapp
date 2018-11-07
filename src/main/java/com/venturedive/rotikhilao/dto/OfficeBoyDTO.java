@@ -1,14 +1,9 @@
-package com.venturedive.rotikhilao.DTO;
+package com.venturedive.rotikhilao.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
 
 @Data
 @AllArgsConstructor

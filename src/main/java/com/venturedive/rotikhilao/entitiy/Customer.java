@@ -1,7 +1,9 @@
 package com.venturedive.rotikhilao.entitiy;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "customer")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +32,8 @@ public class Customer implements Serializable {
 
     @Column(name="image_url")
     private String imageUrl;
+
+    private Integer credit;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="companyId", nullable = false)

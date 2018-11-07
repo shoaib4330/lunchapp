@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.DTO;
+package com.venturedive.rotikhilao.dto;
 
 import lombok.*;
 

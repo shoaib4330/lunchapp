@@ -1,8 +1,8 @@
 package com.venturedive.rotikhilao.service.vendor;
 
-import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
-import com.venturedive.rotikhilao.DTO.FoodItemDTO;
-import com.venturedive.rotikhilao.DTO.VendorDTO;
+import com.venturedive.rotikhilao.dto.CreateVendorDTO;
+import com.venturedive.rotikhilao.dto.FoodItemDTO;
+import com.venturedive.rotikhilao.dto.VendorDTO;
 
 import java.util.List;
 

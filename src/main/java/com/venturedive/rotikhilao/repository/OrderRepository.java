@@ -1,5 +1,6 @@
 package com.venturedive.rotikhilao.repository;
 
+import com.venturedive.rotikhilao.entitiy.OfficeBoy;
 import com.venturedive.rotikhilao.entitiy.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +19,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 //
 //    List<Order> findAllByOrderedByIdOrderByOrderTimeDesc(@Param("orderedBy") Long orderedBy);
 
-
+    List<Order> findAllByOfficeBoyAndOrderStatus(OfficeBoy officeBoy, short orderStatus);
 }

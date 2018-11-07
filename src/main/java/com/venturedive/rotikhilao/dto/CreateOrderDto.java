@@ -1,6 +1,5 @@
-package com.venturedive.rotikhilao.DTO;
+package com.venturedive.rotikhilao.dto;
 
-import com.venturedive.rotikhilao.entitiy.OfficeBoy;
 import lombok.Builder;
 import lombok.Data;
 

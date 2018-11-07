@@ -1,8 +1,10 @@
 package com.venturedive.rotikhilao.entitiy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +19,8 @@ import java.util.Objects;
 @Table(name="orders")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +29,7 @@ public class Order implements Serializable{
     private Long id;
 
     @Column(name="total_bill")
-    private Long bill;
+    private Integer bill;
 
     @Column(name="delivery_time")
     private LocalDateTime deliveryTime;
@@ -36,12 +40,16 @@ public class Order implements Serializable{
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="office_boy_id", insertable = false, updatable = false)
     @JsonIgnore
     private OfficeBoy officeBoy;
 
     @Column(name="order_status")
-    private long orderStatus;
+    private short orderStatus;
 
     @OneToMany(
             mappedBy = "order",

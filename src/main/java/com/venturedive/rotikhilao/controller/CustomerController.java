@@ -1,20 +1,11 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.DTO.CustomerDto;
-import com.venturedive.rotikhilao.entitiy.Order;
-import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.pojo.ResponseList;
-import com.venturedive.rotikhilao.pojo.UserProfile;
-import com.venturedive.rotikhilao.request.OrderWrapper;
+import com.venturedive.rotikhilao.dto.CustomerDto;
 import com.venturedive.rotikhilao.service.customer.ICustomerService;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController

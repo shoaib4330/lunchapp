@@ -1,7 +1,9 @@
 package com.venturedive.rotikhilao.entitiy;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @Table(name = "office_boy")
+@NoArgsConstructor
+@AllArgsConstructor
 public class OfficeBoy implements Serializable {
     private static final long serialVersionUID = 1L;
 

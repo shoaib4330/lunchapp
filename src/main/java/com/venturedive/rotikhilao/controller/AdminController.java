@@ -1,6 +1,6 @@
 //package com.venturedive.rotikhilao.controller;
 //
-//import com.venturedive.rotikhilao.DTO.OfficeBoyDTO;
+//import com.venturedive.rotikhilao.dto.OfficeBoyDTO;
 //import com.venturedive.rotikhilao.entitiy.Order;
 //import com.venturedive.rotikhilao.pojo.BooleanResponse;
 //import com.venturedive.rotikhilao.pojo.ResponseList;

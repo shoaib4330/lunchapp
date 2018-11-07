@@ -1,7 +1,7 @@
 package com.venturedive.rotikhilao.service.order;
 
-import com.venturedive.rotikhilao.DTO.CreateOrderDto;
-import com.venturedive.rotikhilao.DTO.OrderDto;
+import com.venturedive.rotikhilao.dto.CreateOrderDto;
+import com.venturedive.rotikhilao.dto.OrderDto;
 import com.venturedive.rotikhilao.entitiy.*;
 import com.venturedive.rotikhilao.enums.OrderStatus;
 import com.venturedive.rotikhilao.exception.ApplicationException;
@@ -48,7 +48,7 @@ public class OrderService implements IOrderService {
 
         final Order order = Order.builder().customer(customer).orderStatus(OrderStatus.PENDING.value()).officeBoy(officeBoy).build();
         List<OrderItem> orderItems = new ArrayList<>();
-        long bill = 0;
+        Integer bill = 0;
         foodItems.forEach(f->
         {
             orderItems.add(OrderItem.builder().footItem(f).order(order).build());

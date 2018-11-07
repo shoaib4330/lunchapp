@@ -1,6 +1,5 @@
-package com.venturedive.rotikhilao.DTO;
+package com.venturedive.rotikhilao.dto;
 
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 public class VendorDTO {
