@@ -5,6 +5,7 @@ import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
 import com.venturedive.rotikhilao.entitiy.Company;
 import com.venturedive.rotikhilao.entitiy.Customer;
 import com.venturedive.rotikhilao.exception.ApplicationException;
+import com.venturedive.rotikhilao.dto.UserTokenResponseDto;
 import com.venturedive.rotikhilao.repository.CompanyRepository;
 import com.venturedive.rotikhilao.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,20 @@ public class GoogleService implements IGoogleService {
 
     @Override
     @Transactional
-    public String saveNewUser(GoogleIdToken.Payload payload) {
+    public UserTokenResponseDto saveNewUser(GoogleIdToken.Payload payload) {
         Company company = companyRepository.findByEmailDomain(payload.getHostedDomain())
                 .orElseThrow(()-> new ApplicationException("Company not found with given domain"));
 
         Customer customer = Customer.builder().company(company).customerName((String) payload.get("name"))
                 .email(payload.getEmail()).imageUrl((String) payload.get("picture"))
                 .build();
-        customerRepository.save(customer);
+        customer = customerRepository.save(customer);
 
-        return tokenProvider.generateToken(customer.getCustomerId());
+        return UserTokenResponseDto.builder().isAuthorized(true)
+                .userId(customer.getCustomerId())
+                .jwtToken(tokenProvider.generateToken(customer.getCustomerId()))
+                .name(customer.getCustomerName())
+                .build();
 
     }
 
@@ -52,7 +57,7 @@ public class GoogleService implements IGoogleService {
 
     @Override
     @Transactional
-    public String checkUserExistence(Map<String, Object> map) throws Exception {
+    public UserTokenResponseDto checkUserExistence(Map<String, Object> map) throws Exception {
 
         if (!companyRepository.findByEmailDomain((String) map.get("hd")).isPresent()){
             new ApplicationException("Company not found with given domain");
@@ -60,13 +65,22 @@ public class GoogleService implements IGoogleService {
 
         Optional<Customer> customer = customerRepository.findByEmail((String) map.get("email"));
         if (customer.isPresent()){
-            return tokenProvider.generateToken(customer.get().getCustomerId());
+            return UserTokenResponseDto.builder().isAuthorized(true)
+                    .userId(customer.get().getCustomerId())
+                    .jwtToken(tokenProvider.generateToken(customer.get().getCustomerId()))
+                    .name(customer.get().getCustomerName())
+                    .build();
         }
         Customer newCustomer = Customer.builder().customerName((String) map.get("name"))
                 .imageUrl((String) map.get("picture"))
                 .email((String) map.get("email"))
                 .build();
-        customerRepository.save(newCustomer);
-        return tokenProvider.generateToken(newCustomer.getCustomerId());
+        newCustomer = customerRepository.save(newCustomer);
+        return UserTokenResponseDto.builder().isAuthorized(true)
+                .userId(newCustomer.getCustomerId())
+                .jwtToken(tokenProvider.generateToken(newCustomer.getCustomerId()))
+                .name(newCustomer.getCustomerName())
+                .build();
+
     }
 }

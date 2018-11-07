@@ -33,6 +33,7 @@ public class Vendor implements Serializable {
     private String phoneNumber;
 
     @Column(name = "vendor_address")
+    private String address;
 
     @CreationTimestamp
     private LocalDateTime dtCreated;

@@ -1,6 +1,5 @@
 package com.venturedive.rotikhilao.entitiy;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;

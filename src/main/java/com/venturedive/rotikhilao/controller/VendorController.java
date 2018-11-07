@@ -34,8 +34,8 @@ public class VendorController {
     }
 
     @PostMapping(value = "/add-vendor")
-    public void createVendor(@RequestBody CreateVendorDTO vendorDTO){
-        vendorService.createVendor(vendorDTO);
+    public VendorDTO createVendor(@RequestBody CreateVendorDTO vendorDTO){
+        return vendorService.createVendor(vendorDTO);
     }
 
     @GetMapping(value = "/{vendorId}/orders")

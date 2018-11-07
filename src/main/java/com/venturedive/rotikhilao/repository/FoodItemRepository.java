@@ -1,7 +1,6 @@
 package com.venturedive.rotikhilao.repository;
 
 import com.venturedive.rotikhilao.entitiy.FoodItem;
-import com.venturedive.rotikhilao.entitiy.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

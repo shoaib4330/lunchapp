@@ -6,7 +6,7 @@ import com.venturedive.rotikhilao.dto.UpdateCustomerBalanceDto;
 import java.util.List;
 
 public interface ICustomerService {
-    CustomerDto getCustomerById(Long customerId);
+    CustomerDto getCustomerById(long customerId);
     List<CustomerDto> getAllCustomers();
     List<CustomerDto> getAllCustomersByCompany(Long companyId);
     void creditTransaction(UpdateCustomerBalanceDto customerCreditDto);

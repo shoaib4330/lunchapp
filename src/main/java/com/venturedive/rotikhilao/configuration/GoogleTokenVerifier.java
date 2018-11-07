@@ -8,7 +8,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.venturedive.rotikhilao.pojo.TokenResponse;
+import com.venturedive.rotikhilao.dto.UserTokenResponseDto;
 import com.venturedive.rotikhilao.service.google.GoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -75,7 +75,7 @@ public class GoogleTokenVerifier {
             //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
             .build();
 
-    public TokenResponse verifyIdToken(String idTokenString) throws Exception {
+    public UserTokenResponseDto verifyIdToken(String idTokenString) throws Exception {
 
         GoogleIdToken idToken = verifier.verify(idTokenString);
         StringBuffer dataFromGoogleAPI = GetData(idTokenString);
@@ -92,11 +92,7 @@ public class GoogleTokenVerifier {
 
             System.out.println(map);
 
-            String userToken = googleService.checkUserExistence(map);
-
-            name = (String) map.get("name");
-
-            return generateToken(userToken, name);
+            return googleService.checkUserExistence(map);
 
         } catch (JsonGenerationException e) {
             e.printStackTrace();
@@ -108,19 +104,8 @@ public class GoogleTokenVerifier {
             throw new Exception("Error in generating token");
         }
 
-        return generateToken("UNAUTHORIZED", name);
+        return UserTokenResponseDto.builder().isAuthorized(false).name(name).build();
 
     }
-
-
-    private TokenResponse generateToken(String content, String name){
-
-        if (content.equals("UNAUTHORIZED")){
-            return new TokenResponse("false", "-", "-");
-        }
-
-        return new TokenResponse("true", content, name);
-    }
-
 
 }

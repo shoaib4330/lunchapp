@@ -33,9 +33,9 @@ public class CustomerService implements ICustomerService {
     private TransactionRepository transactionRepository;
 
     @Override
-    public CustomerDto getCustomerById(Long customerId) {
+    public CustomerDto getCustomerById(long customerId) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new ApplicationException("Customer not found with given id"));
+                .orElseThrow(()-> new ApplicationException("Customer not found with given id"));
         return customerMapper.mapToDto(customer);
     }
 
