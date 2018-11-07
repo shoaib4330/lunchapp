@@ -2,7 +2,6 @@ package com.venturedive.rotikhilao.service.company;
 
 import com.venturedive.rotikhilao.DTO.CompanyDto;
 import com.venturedive.rotikhilao.DTO.CreateCompanyDto;
-import com.venturedive.rotikhilao.entitiy.Company;
 
 import java.util.List;
 

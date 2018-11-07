@@ -7,6 +7,5 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface OfficeBoyMapper {
-    @Mapping(source = "company.companyId", target = "companyId")
     OfficeBoyDTO mapToDto(OfficeBoy officeBoy);
 }

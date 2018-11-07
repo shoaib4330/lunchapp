@@ -8,10 +8,11 @@ import com.venturedive.rotikhilao.exception.ApplicationException;
 import com.venturedive.rotikhilao.mapper.CompanyMapper;
 import com.venturedive.rotikhilao.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+@Service
 public class CompanyService implements ICompanyService {
 
     @Autowired

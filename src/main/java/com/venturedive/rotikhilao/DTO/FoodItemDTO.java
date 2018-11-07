@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,4 +19,7 @@ public class FoodItemDTO {
     private Long vendorId;
     private String title;
     private String imageUrl;
+    private LocalDateTime dtCreated;
+    private LocalDateTime dtUpdated;
+
 }

@@ -1,6 +1,7 @@
 package com.venturedive.rotikhilao.filters;
 
 import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
+import com.venturedive.rotikhilao.exception.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (request.getRequestURI().equals("/api/auth/*")){
+        if (request.getRequestURI().matches("/api/auth(.*)")){
             filterChain.doFilter(request, response);
         }
-
-        else {
-
+        else if(request.getRequestURI().matches("/api/(.*)")){
             try {
                 String jwt = getJwtFromRequest(request);
 
@@ -40,11 +39,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
 
             } catch (Exception ex) {
-                logger.error("Could not set user authentication in security context", ex);
+                throw new ApplicationException("Unable to authenticate user");
             }
-
             filterChain.doFilter(request, response);
-
+        }
+        else {
+            filterChain.doFilter(request, response);
         }
 
     }

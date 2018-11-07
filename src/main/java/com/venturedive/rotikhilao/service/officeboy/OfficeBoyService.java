@@ -111,13 +111,14 @@ public class OfficeBoyService implements IOfficeBoyService {
         Company company = companyRepository.findById(createOfficeBoyDto.getCompanyId())
                 .orElseThrow(()->new ApplicationException("Company not found with ID: "+ createOfficeBoyDto.getCompanyId() ));
 
-        officeBoyRepository.findByOfficeBoyName(createOfficeBoyDto.getName())
-                .orElseThrow(()->new ApplicationException("OfficeBoy already exist with name : "+ createOfficeBoyDto.getName()));
+        if(officeBoyRepository.findByOfficeBoyName(createOfficeBoyDto.getName()).isPresent()) {
+            throw new ApplicationException("OfficeBoy already exist with name : " + createOfficeBoyDto.getName());
+        }
 
         OfficeBoy officeBoy = OfficeBoy.builder()
                 .officeBoyName(createOfficeBoyDto.getName())
                 .officeBoyPassword(bCryptPasswordEncoder.encode(createOfficeBoyDto.getPassword()))
-                .company(company)
+                .companyId(company.getCompanyId())
                 .build();
         officeBoy = officeBoyRepository.save(officeBoy);
 

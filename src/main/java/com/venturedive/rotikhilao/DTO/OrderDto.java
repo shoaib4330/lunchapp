@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,4 +18,6 @@ public class OrderDto {
     private String customerName;
     private Long orderStatus;
     private List<FoodItemDTO> foodItems;
+    private LocalDateTime dtCreated;
+    private LocalDateTime dtUpdated;
 }

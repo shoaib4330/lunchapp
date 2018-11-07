@@ -34,6 +34,9 @@ public class OfficeBoy implements Serializable {
     @JoinColumn(name="companyId",insertable = false, updatable = false)
     private Company company;
 
+    @JoinColumn(name = "companyId")
+    private Long companyId;
+
     @CreationTimestamp
     private LocalDateTime dtCreated;
 

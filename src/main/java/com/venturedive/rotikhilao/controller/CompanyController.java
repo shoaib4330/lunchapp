@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/company")
 public class CompanyController {
+
     @Autowired
     private CompanyService companyService;
 
