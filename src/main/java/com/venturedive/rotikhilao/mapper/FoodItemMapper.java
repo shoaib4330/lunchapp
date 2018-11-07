@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.mapper;
 
-import com.venturedive.rotikhilao.dto.FoodItemDTO;
+import com.venturedive.rotikhilao.DTO.FoodItemDTO;
 import com.venturedive.rotikhilao.entitiy.FoodItem;
 import org.mapstruct.Mapper;
 

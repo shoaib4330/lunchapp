@@ -1,9 +1,9 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.dto.CreateVendorDTO;
-import com.venturedive.rotikhilao.dto.FoodItemDTO;
-import com.venturedive.rotikhilao.dto.OrderDto;
-import com.venturedive.rotikhilao.dto.VendorDTO;
+import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
+import com.venturedive.rotikhilao.DTO.FoodItemDTO;
+import com.venturedive.rotikhilao.DTO.OrderDto;
+import com.venturedive.rotikhilao.DTO.VendorDTO;
 import com.venturedive.rotikhilao.service.vendor.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

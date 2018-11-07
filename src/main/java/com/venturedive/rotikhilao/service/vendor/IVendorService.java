@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.service.vendor;
 
-import com.venturedive.rotikhilao.dto.*;
+import com.venturedive.rotikhilao.DTO.*;
 
 import java.util.List;
 

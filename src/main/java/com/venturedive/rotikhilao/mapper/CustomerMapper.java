@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.mapper;
 
-import com.venturedive.rotikhilao.dto.CustomerDto;
+import com.venturedive.rotikhilao.DTO.CustomerDto;
 import com.venturedive.rotikhilao.entitiy.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

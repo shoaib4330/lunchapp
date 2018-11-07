@@ -1,8 +1,9 @@
 package com.venturedive.rotikhilao.controller;
 
 import com.venturedive.rotikhilao.configuration.GoogleTokenVerifier;
-import com.venturedive.rotikhilao.dto.LoginDto;
-import com.venturedive.rotikhilao.dto.UserTokenResponseDto;
+import com.venturedive.rotikhilao.DTO.LoginDto;
+import com.venturedive.rotikhilao.DTO.UserTokenResponseDto;
+import com.venturedive.rotikhilao.service.officeboy.OfficeBoyService;
 import com.venturedive.rotikhilao.service.vendor.VendorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class AuthController {
     @Autowired
     VendorService vendorService;
 
+    @Autowired
+    OfficeBoyService officeBoyService;
+
 
     @PostMapping(value="/customerlogin")
     public UserTokenResponseDto authenticateUser(@RequestBody @NotNull String body) throws Exception {
@@ -38,6 +42,10 @@ public class AuthController {
     @PostMapping(value = "/vendorLogin")
     public UserTokenResponseDto authenticateVendor(@RequestBody @NotNull LoginDto loginDto ){
         return vendorService.authenticateVendor(loginDto);
+    }
+    @PostMapping(value = "/officeGuyLogin")
+    public UserTokenResponseDto authenticateOfficeBoy(@RequestBody @NotNull LoginDto loginDto){
+        return officeBoyService.authenticateOfficeBoy(loginDto);
     }
 
 

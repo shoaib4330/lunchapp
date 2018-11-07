@@ -1,8 +1,8 @@
 package com.venturedive.rotikhilao.service.customer;
 
 import com.venturedive.rotikhilao.common.CommonUtils;
-import com.venturedive.rotikhilao.dto.CustomerDto;
-import com.venturedive.rotikhilao.dto.UpdateCustomerBalanceDto;
+import com.venturedive.rotikhilao.DTO.CustomerDto;
+import com.venturedive.rotikhilao.DTO.UpdateCustomerBalanceDto;
 import com.venturedive.rotikhilao.entitiy.Company;
 import com.venturedive.rotikhilao.entitiy.Customer;
 import com.venturedive.rotikhilao.entitiy.Transaction;

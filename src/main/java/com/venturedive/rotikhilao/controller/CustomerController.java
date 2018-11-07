@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.dto.CustomerDto;
+import com.venturedive.rotikhilao.DTO.CustomerDto;
 import com.venturedive.rotikhilao.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

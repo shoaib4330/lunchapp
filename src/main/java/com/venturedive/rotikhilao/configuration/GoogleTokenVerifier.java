@@ -8,7 +8,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.venturedive.rotikhilao.dto.UserTokenResponseDto;
+import com.venturedive.rotikhilao.DTO.UserTokenResponseDto;
 import com.venturedive.rotikhilao.service.google.GoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

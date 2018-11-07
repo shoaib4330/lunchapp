@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.request;
 
-import com.venturedive.rotikhilao.dto.FoodItemDTO;
+import com.venturedive.rotikhilao.DTO.FoodItemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

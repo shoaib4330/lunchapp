@@ -31,7 +31,7 @@ public class OfficeBoy implements Serializable {
     private String officeBoyPassword;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="companyId", nullable = false)
+    @JoinColumn(name="companyId",insertable = false, updatable = false)
     private Company company;
 
     @CreationTimestamp

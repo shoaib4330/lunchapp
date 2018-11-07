@@ -1,7 +1,7 @@
 package com.venturedive.rotikhilao.service.google;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.venturedive.rotikhilao.dto.UserTokenResponseDto;
+import com.venturedive.rotikhilao.DTO.UserTokenResponseDto;
 
 import java.util.Map;
 

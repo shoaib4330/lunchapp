@@ -1,6 +1,6 @@
 package com.venturedive.rotikhilao.service.vendor;
 
-import com.venturedive.rotikhilao.dto.*;
+import com.venturedive.rotikhilao.DTO.*;
 import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
 import com.venturedive.rotikhilao.entitiy.FoodItem;
 import com.venturedive.rotikhilao.entitiy.Vendor;
@@ -40,7 +40,6 @@ public class VendorService implements IVendorService {
     public UserTokenResponseDto authenticateVendor(LoginDto loginDto) {
         Vendor vendor = vendorRepository.findByName(loginDto.getUsername())
                 .orElseThrow(()-> new ApplicationException("Vendor does not exist with username: "+ loginDto.getUsername()));
-        UserTokenResponseDto userTokenResponseDto;
         if(bCryptPasswordEncoder.matches(loginDto.getPassword(),vendor.getPassword()))
         {
             return UserTokenResponseDto.builder().userId(vendor.getId())

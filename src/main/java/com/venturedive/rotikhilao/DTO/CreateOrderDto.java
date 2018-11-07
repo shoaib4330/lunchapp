@@ -1,4 +1,4 @@
-package com.venturedive.rotikhilao.dto;
+package com.venturedive.rotikhilao.DTO;
 
 import lombok.Builder;
 import lombok.Data;
