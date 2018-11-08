@@ -1,12 +1,11 @@
 package com.venturedive.rotikhilao.controller;
 
 import com.venturedive.rotikhilao.DTO.CustomerDto;
+import com.venturedive.rotikhilao.DTO.PlaceOrderDto;
+import com.venturedive.rotikhilao.pojo.BooleanResponse;
 import com.venturedive.rotikhilao.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,10 +22,14 @@ public class CustomerController {
 
 
     @GetMapping("/{customerId}")
-    public CustomerDto getCustumerById(@PathVariable(name= "customerId") long userId) throws Exception {
+    public CustomerDto getCustomerById(@PathVariable(name= "customerId") long userId) throws Exception {
         return customerService.getCustomerById(userId);
     }
 
+    @PostMapping(value = "/place-order")
+    public BooleanResponse placeOrder(PlaceOrderDto placeOrderDto){
+        return customerService.placeOrder(placeOrderDto);
+    }
 
     @GetMapping("/all")
     public List<CustomerDto> getAllCustomer() throws Exception {

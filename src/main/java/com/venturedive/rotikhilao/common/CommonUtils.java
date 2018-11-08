@@ -3,6 +3,8 @@ package com.venturedive.rotikhilao.common;
 import com.venturedive.rotikhilao.exception.ApplicationException;
 import lombok.experimental.UtilityClass;
 
+import java.util.List;
+
 @UtilityClass
 public class CommonUtils {
     public static void checkRequiredField(Long value){
@@ -33,5 +35,9 @@ public class CommonUtils {
 
     public static boolean empty(String value){
         return value == null || value.isEmpty();
+    }
+
+    public static boolean empty(List<? extends Object> list){
+        return list == null || list.isEmpty();
     }
 }

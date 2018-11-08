@@ -1,15 +1,14 @@
 package com.venturedive.rotikhilao.service.customer;
 
-import com.venturedive.rotikhilao.DTO.CustomerDto;
-import com.venturedive.rotikhilao.DTO.UpdateCustomerBalanceDto;
+import com.venturedive.rotikhilao.DTO.*;
 import com.venturedive.rotikhilao.common.CommonUtils;
-import com.venturedive.rotikhilao.entitiy.Company;
-import com.venturedive.rotikhilao.entitiy.Customer;
-import com.venturedive.rotikhilao.entitiy.Transaction;
+import com.venturedive.rotikhilao.entitiy.*;
 import com.venturedive.rotikhilao.exception.ApplicationException;
 import com.venturedive.rotikhilao.mapper.CustomerMapper;
+import com.venturedive.rotikhilao.pojo.BooleanResponse;
 import com.venturedive.rotikhilao.repository.CompanyRepository;
 import com.venturedive.rotikhilao.repository.CustomerRepository;
+import com.venturedive.rotikhilao.repository.OrderRepository;
 import com.venturedive.rotikhilao.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +30,35 @@ public class CustomerService implements ICustomerService {
 
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Override
+    public BooleanResponse placeOrder(PlaceOrderDto placeOrderDto) {
+        CommonUtils.checkRequiredField(placeOrderDto.getCustomerId());
+        CommonUtils.checkRequiredField(placeOrderDto.getOfficeBoyId());
+        CommonUtils.checkRequiredField(placeOrderDto.getVendorId());
+
+        if(CommonUtils.empty(placeOrderDto.getFoodItems())){
+            throw new ApplicationException("Order empty, no food-items added to order");
+        }
+
+        Integer orderTotalBill=0;
+        for (FoodItemDTO foodItem: placeOrderDto.getFoodItems()) {
+            orderTotalBill = orderTotalBill + foodItem.getUnitPrice();
+        }
+
+        Order order = Order.builder()
+                .customerId(placeOrderDto.getCustomerId())
+                .officeBoyId(placeOrderDto.getOfficeBoyId())
+                .vendorId(placeOrderDto.getVendorId())
+                .bill(orderTotalBill)
+                .build();
+        orderRepository.save(order);
+
+        return BooleanResponse.success("Order successfully placed");
+    }
 
     @Override
     public CustomerDto getCustomerById(long customerId) {
