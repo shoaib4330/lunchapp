@@ -1,19 +1,18 @@
 package com.venturedive.rotikhilao.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OfficeBoyDTO {
     private Long id;
     private String officeBoyName;
     private Long companyId;
     private LocalDateTime dtCreated;
     private LocalDateTime dtUpdated;
-
 }

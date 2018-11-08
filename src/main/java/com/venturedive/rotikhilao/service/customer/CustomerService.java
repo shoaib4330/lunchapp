@@ -3,17 +3,18 @@ package com.venturedive.rotikhilao.service.customer;
 import com.venturedive.rotikhilao.DTO.*;
 import com.venturedive.rotikhilao.common.CommonUtils;
 import com.venturedive.rotikhilao.entitiy.*;
+import com.venturedive.rotikhilao.enums.OrderStatus;
 import com.venturedive.rotikhilao.exception.ApplicationException;
 import com.venturedive.rotikhilao.mapper.CustomerMapper;
+import com.venturedive.rotikhilao.mapper.FoodItemMapper;
+import com.venturedive.rotikhilao.mapper.OrderMapper;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
-import com.venturedive.rotikhilao.repository.CompanyRepository;
-import com.venturedive.rotikhilao.repository.CustomerRepository;
-import com.venturedive.rotikhilao.repository.OrderRepository;
-import com.venturedive.rotikhilao.repository.TransactionRepository;
+import com.venturedive.rotikhilao.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,32 +33,61 @@ public class CustomerService implements ICustomerService {
     private TransactionRepository transactionRepository;
 
     @Autowired
+    private FoodItemRepository foodItemRepository;
+
+    @Autowired
+    private OfficeBoyRepository officeBoyRepository;
+
+    @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Autowired
+    private FoodItemMapper foodItemMapper;
+
     @Override
-    public BooleanResponse placeOrder(PlaceOrderDto placeOrderDto) {
-        CommonUtils.checkRequiredField(placeOrderDto.getCustomerId());
-        CommonUtils.checkRequiredField(placeOrderDto.getOfficeBoyId());
-        CommonUtils.checkRequiredField(placeOrderDto.getVendorId());
+    @Transactional
+    public OrderDto placeOrder(CreateOrderDto createOrderDto) {
+        CommonUtils.checkRequiredField(createOrderDto.getCustomerId());
+        CommonUtils.checkRequiredField(createOrderDto.getOfficeBoyId());
+        CommonUtils.checkRequiredField(createOrderDto.getFoodItems().size());
 
-        if(CommonUtils.empty(placeOrderDto.getFoodItems())){
-            throw new ApplicationException("Order empty, no food-items added to order");
+        Customer customer = customerRepository.findById(createOrderDto.getCustomerId())
+                .orElseThrow(()->new ApplicationException("Customer not Found With ID: " + createOrderDto.getCustomerId()));
+
+        OfficeBoy officeBoy = officeBoyRepository.findById(createOrderDto.getOfficeBoyId())
+                .orElseThrow(()-> new ApplicationException("OfficeBoy not found with ID: "+createOrderDto.getOfficeBoyId()));
+
+        List<FoodItem> foodItems = new ArrayList<>();
+        createOrderDto.getFoodItems()
+                .forEach(f->{
+                    foodItems.add(foodItemRepository.findByFoodItemIdAndQuantityGreaterThan(f,0)
+                            .orElseThrow(()-> new ApplicationException("FoodItem with ID: " + f + " Not Available")));}
+                );
+
+        final Order order = Order.builder().customer(customer).orderStatus(OrderStatus.PENDING.value()).officeBoy(officeBoy).build();
+        List<OrderItem> orderItems = new ArrayList<>();
+        Integer bill = 0;
+        foodItems.forEach(f->
+        {
+            f.setQuantity(f.getQuantity()-1);
+            foodItemRepository.save(f);
+            orderItems.add(OrderItem.builder().footItem(f).order(order).build());
+        });
+        for(FoodItem f: foodItems){
+            bill = bill + f.getUnitPrice();
         }
+        order.setBill(bill);
+        order.setOrderItems(orderItems);
+        Order mOrder = orderRepository.save(order);
 
-        Integer orderTotalBill=0;
-        for (FoodItemDTO foodItem: placeOrderDto.getFoodItems()) {
-            orderTotalBill = orderTotalBill + foodItem.getUnitPrice();
-        }
 
-        Order order = Order.builder()
-                .customerId(placeOrderDto.getCustomerId())
-                .officeBoyId(placeOrderDto.getOfficeBoyId())
-                .vendorId(placeOrderDto.getVendorId())
-                .bill(orderTotalBill)
-                .build();
-        orderRepository.save(order);
+        OrderDto orderDto = orderMapper.mapToDto(mOrder);
+        orderDto.setFoodItems(foodItemMapper.mapToDtoList(foodItems));
 
-        return BooleanResponse.success("Order successfully placed");
+        return orderDto;
     }
 
     @Override
@@ -127,5 +157,10 @@ public class CustomerService implements ICustomerService {
                 .build();
 
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    public List <FoodItemDTO> getMenuForToday() {
+        return foodItemMapper.mapToDtoList(foodItemRepository.getMenuForToday());
     }
 }

@@ -101,7 +101,6 @@ public class OfficeBoyService implements IOfficeBoyService {
     }
 
     @Override
-    @Transactional
     public OfficeBoyDTO addOfficeBoy(CreateOfficeBoyDto createOfficeBoyDto) {
 
         CommonUtils.checkRequiredField(createOfficeBoyDto.getCompanyId());

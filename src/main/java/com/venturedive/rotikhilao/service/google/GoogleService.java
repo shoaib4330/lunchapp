@@ -28,7 +28,6 @@ public class GoogleService implements IGoogleService {
     private JwtTokenProvider tokenProvider;
 
     @Override
-    @Transactional
     public UserTokenResponseDto saveNewUser(GoogleIdToken.Payload payload) {
         Company company = companyRepository.findByEmailDomain(payload.getHostedDomain())
                 .orElseThrow(()-> new ApplicationException("Company not found with given domain"));
@@ -56,7 +55,6 @@ public class GoogleService implements IGoogleService {
     }
 
     @Override
-    @Transactional
     public UserTokenResponseDto checkUserExistence(Map<String, Object> map) throws Exception {
 
         if (!companyRepository.findByEmailDomain((String) map.get("hd")).isPresent()){

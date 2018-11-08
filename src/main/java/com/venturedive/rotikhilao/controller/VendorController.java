@@ -1,13 +1,11 @@
 package com.venturedive.rotikhilao.controller;
 
-import com.venturedive.rotikhilao.DTO.CreateVendorDTO;
-import com.venturedive.rotikhilao.DTO.FoodItemDTO;
-import com.venturedive.rotikhilao.DTO.OrderDto;
-import com.venturedive.rotikhilao.DTO.VendorDTO;
+import com.venturedive.rotikhilao.DTO.*;
 import com.venturedive.rotikhilao.service.vendor.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -42,6 +40,11 @@ public class VendorController {
     public List<OrderDto> getVendorOrders(@PathVariable(value = "vendorId") Long vendorId){
         //todo: implement in service and make a call from here
         return null;
+    }
+
+    @PostMapping(value = "/add-foodItem")
+    private FoodItemDTO addFoodItem(@RequestBody @NotNull CreateFoodItemDto createFoodItemDto ){
+        return vendorService.addFoodItem(createFoodItemDto);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.venturedive.rotikhilao.service.vendor;
 
 import com.venturedive.rotikhilao.DTO.*;
+import com.venturedive.rotikhilao.common.CommonUtils;
 import com.venturedive.rotikhilao.configuration.JwtTokenProvider;
 import com.venturedive.rotikhilao.entitiy.FoodItem;
 import com.venturedive.rotikhilao.entitiy.Vendor;
@@ -94,6 +95,28 @@ public class VendorService implements IVendorService {
     public List<FoodItemDTO> getAllFoodItemsByVendor(Long vendorId) {
         List<FoodItem> foodItems = foodItemRepository.findAllByVendorId(findVendor(vendorId).getId());
         return foodItemMapper.mapToDtoList(foodItems);
+    }
+
+    @Override
+    public FoodItemDTO addFoodItem(CreateFoodItemDto createFoodItemDto) {
+        CommonUtils.checkRequiredField(createFoodItemDto.getVendorId());
+        CommonUtils.checkRequiredField(createFoodItemDto.getTitle());
+        CommonUtils.checkRequiredField(createFoodItemDto.getQuantity());
+        CommonUtils.checkRequiredField(createFoodItemDto.getUnitPrice());
+
+        Vendor vendor = vendorRepository.findById(createFoodItemDto.getVendorId())
+                .orElseThrow(() -> new ApplicationException("Vendor not found with ID: " + createFoodItemDto.getVendorId()));
+
+        FoodItem foodItem = FoodItem.builder()
+                .quantity(createFoodItemDto.getQuantity())
+                .vendorId(vendor.getId())
+                .title(createFoodItemDto.getTitle())
+                .unitPrice(createFoodItemDto.getUnitPrice())
+                .build();
+
+        foodItem = foodItemRepository.save(foodItem);
+
+        return foodItemMapper.mapToDto(foodItem);
     }
 
     private Vendor findVendor(Long vendorId){

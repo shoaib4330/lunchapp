@@ -17,4 +17,6 @@ public interface IVendorService {
     List<VendorDTO> getAllVendors();
 
     List<FoodItemDTO> getAllFoodItemsByVendor(Long vendorId);
+
+    FoodItemDTO addFoodItem(CreateFoodItemDto createFoodItemDto);
 }

@@ -1,13 +1,12 @@
 package com.venturedive.rotikhilao.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,11 +14,11 @@ import java.time.LocalDateTime;
 public class FoodItemDTO {
     private Integer quantity;
     private Integer unitPrice;
-    private Long id;
+    private Long foodItemId;
     private Long vendorId;
     private String title;
     private String imageUrl;
-    private LocalDateTime dtCreated;
+    private LocalDate dtCreated;
     private LocalDateTime dtUpdated;
 
 }
