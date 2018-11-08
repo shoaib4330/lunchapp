@@ -68,7 +68,7 @@ public class OrderService implements IOrderService {
 
     private void validateCreateDto(CreateOrderDto createOrderDto){
         if(createOrderDto.getCustomerId()==null || createOrderDto.getCustomerId() < 1) {
-            throw new ApplicationException("Please provide valid customer id");
+            throw new ApplicationException("Please provide valid customer foodItemId");
         }
         if(createOrderDto.getFoodItems().isEmpty()){
             throw new ApplicationException("Please provide food items list");

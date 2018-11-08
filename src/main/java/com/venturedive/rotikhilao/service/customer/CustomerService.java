@@ -35,7 +35,7 @@ public class CustomerService implements ICustomerService {
     @Override
     public CustomerDto getCustomerById(long customerId) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(()-> new ApplicationException("Customer not found with given id"));
+                .orElseThrow(()-> new ApplicationException("Customer not found with given foodItemId"));
         return customerMapper.mapToDto(customer);
     }
 
@@ -48,7 +48,7 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<CustomerDto> getAllCustomersByCompany(Long companyId) {
         Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new ApplicationException("Company not found with given id"));
+                .orElseThrow(() -> new ApplicationException("Company not found with given foodItemId"));
         List<Customer> customers = customerRepository.findByCompany(company);
         return customerMapper.mapToDtoList(customers);
     }
@@ -59,7 +59,7 @@ public class CustomerService implements ICustomerService {
         CommonUtils.checkRequiredField(customerCreditDto.getAmount());
 
         Customer customer = customerRepository.findById(customerCreditDto.getCustomerId())
-                .orElseThrow(() -> new ApplicationException("Customer with id [" + customerCreditDto.getCustomerId() + "] not found"));
+                .orElseThrow(() -> new ApplicationException("Customer with foodItemId [" + customerCreditDto.getCustomerId() + "] not found"));
 
         Integer credit = customer.getCredit();
         credit = credit + customerCreditDto.getAmount();
@@ -83,7 +83,7 @@ public class CustomerService implements ICustomerService {
         CommonUtils.checkRequiredField(customerCreditDto.getAmount());
 
         Customer customer = customerRepository.findById(customerCreditDto.getCustomerId())
-                .orElseThrow(() -> new ApplicationException("Customer with id [" + customerCreditDto.getCustomerId() + "] not found"));
+                .orElseThrow(() -> new ApplicationException("Customer with foodItemId [" + customerCreditDto.getCustomerId() + "] not found"));
 
         Integer credit = customer.getCredit();
         credit = credit - customerCreditDto.getAmount();

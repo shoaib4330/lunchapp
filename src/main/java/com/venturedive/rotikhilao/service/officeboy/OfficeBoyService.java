@@ -52,7 +52,7 @@ public class OfficeBoyService implements IOfficeBoyService {
         CommonUtils.checkRequiredField(officeBoyId);
 
         OfficeBoy officeBoy = officeBoyRepository.findById(officeBoyId)
-                .orElseThrow(() -> new ApplicationException("OfficeBoy with id [" + officeBoyId + "] not found"));
+                .orElseThrow(() -> new ApplicationException("OfficeBoy with foodItemId [" + officeBoyId + "] not found"));
         List<Order> orders = orderRepository.findAllByOfficeBoyAndOrderStatus(officeBoy, OrderStatus.ACCEPTED.value());
         return orderMapper.mapToDto(orders);
     }
@@ -65,7 +65,7 @@ public class OfficeBoyService implements IOfficeBoyService {
     public void markOrderAsReceived(Long orderId) {
         CommonUtils.checkRequiredField(orderId);
 
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ApplicationException("OfficeBoy with id [" + orderId + "] not found"));
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ApplicationException("OfficeBoy with foodItemId [" + orderId + "] not found"));
 
         if (order.getOrderStatus() == OrderStatus.ACCEPTED.value()) {
             order.setOrderStatus(OrderStatus.DELIVERED.value());

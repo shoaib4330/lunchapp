@@ -17,7 +17,7 @@ public class FoodItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long foodItemId;
 
     @Column(name="title")
     private String title;
@@ -26,7 +26,6 @@ public class FoodItem implements Serializable {
     private Integer unitPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "vendor_id",insertable = false, updatable = false, nullable = false)
     private Vendor vendor;
 
