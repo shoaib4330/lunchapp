@@ -33,7 +33,7 @@ public class Customer implements Serializable {
     @Column(name="image_url")
     private String imageUrl;
 
-    private Integer credit;
+    private Integer credit = 0;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="companyId", nullable = false)

@@ -32,13 +32,22 @@ public class Order implements Serializable{
     @Column(name="delivery_time")
     private LocalDateTime deliveryTime;
 
+    @Column(name = "customer_id")
+    private Long customerId;
+
+    @Column(name = "office_boy_id")
+    private Long officeBoyId;
+
+    @Column(name = "vendor_id")
+    private Long vendorId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id", insertable = false, updatable = false)
     @JsonIgnore
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vendor_id")
+    @JoinColumn(name = "vendor_id", insertable = false, updatable = false)
     private Vendor vendor;
 
     @ManyToOne(fetch = FetchType.LAZY)
