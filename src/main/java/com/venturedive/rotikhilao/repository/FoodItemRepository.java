@@ -3,6 +3,7 @@ package com.venturedive.rotikhilao.repository;
 import com.venturedive.rotikhilao.entitiy.FoodItem;
 import com.venturedive.rotikhilao.entitiy.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,8 @@ public interface FoodItemRepository extends JpaRepository<FoodItem, Long> {
     List<FoodItem> getMenuForTodayByVendorId(@Param("vendorId") long vendorId);
 
     Optional<FoodItem> findByFoodItemIdAndQuantityGreaterThanAndVendor(Long id, Integer quantity, Vendor vendor);
+
+    @Modifying
+    @Query(value = "Update FoodItem as f set f.quantity=f.quantity-1 where (f.foodItemId=:foodItemId and f.quantity > 0)")
+    int checkAndUpdate(@Param("foodItemId") long foodItemId);
 }
