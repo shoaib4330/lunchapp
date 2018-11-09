@@ -74,14 +74,17 @@ public class CustomerService implements ICustomerService {
                             .orElseThrow(()-> new ApplicationException("FoodItem with ID: " + f + " Not Available")));}
                 );
 
-        final Order order = Order.builder().customer(customer).orderStatus(OrderStatus.PENDING.value()).vendorId(vendor.getId()).officeBoy(officeBoy).build();
+        final Order order = Order.builder().customerId(customer.getCustomerId()).orderStatus(OrderStatus.PENDING.value()).vendorId(vendor.getId()).officeBoyId(officeBoy.getId()).build();
         List<OrderItem> orderItems = new ArrayList<>();
         Integer bill = 0;
         foodItems.forEach(f->
         {
-            f.setQuantity(f.getQuantity()-1);
-            foodItemRepository.save(f);
-            orderItems.add(OrderItem.builder().footItem(f).order(order).build());
+            if(foodItemRepository.checkAndUpdate(f.getFoodItemId()) == 1) {
+                orderItems.add(OrderItem.builder().footItem(f).order(order).build());
+            }
+            else {
+                throw new ApplicationException("FoodItem with Id: " + f.getFoodItemId() + " not available");
+            }
         });
         for(FoodItem f: foodItems){
             bill = bill + f.getUnitPrice();

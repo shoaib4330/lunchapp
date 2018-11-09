@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
 
-    @Mapping(target = "customerName",source = "customer.customerName")
     OrderDto mapToDto(Order order);
 
     List<OrderDto> mapToDto(List<Order> orderList);
