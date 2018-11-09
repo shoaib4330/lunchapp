@@ -14,5 +14,4 @@ public interface ICustomerService {
     List<CustomerDto> getAllCustomersByCompany(Long companyId);
     void creditTransaction(UpdateCustomerBalanceDto customerCreditDto);
     void debitTransaction(UpdateCustomerBalanceDto customerCreditDto);
-    List<FoodItemDTO> getMenuForToday();
 }

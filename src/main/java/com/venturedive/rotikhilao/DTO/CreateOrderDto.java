@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class CreateOrderDto {
     private Long customerId;
+    private Long vendorId;
     private List<Long> foodItems;
     private Long officeBoyId;
 }

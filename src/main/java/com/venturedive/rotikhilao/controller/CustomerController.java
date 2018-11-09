@@ -4,6 +4,7 @@ import com.venturedive.rotikhilao.DTO.*;
 import com.venturedive.rotikhilao.entitiy.Order;
 import com.venturedive.rotikhilao.pojo.BooleanResponse;
 import com.venturedive.rotikhilao.service.customer.ICustomerService;
+import com.venturedive.rotikhilao.service.vendor.IVendorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +14,11 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
+    @Autowired
     private ICustomerService customerService;
 
     @Autowired
-    public CustomerController(ICustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private IVendorService vendorService;
 
     @GetMapping("/{customerId}")
     public CustomerDto getCustomerById(@PathVariable(name= "customerId") long userId) throws Exception {
@@ -35,10 +35,15 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
-    @GetMapping("/menu")
-    public List<FoodItemDTO> getTodayMenu()
+    @GetMapping("/menu/{vendorId}")
+    public List<FoodItemDTO> getTodayMenu(@PathVariable Long vendorId)
     {
-        return customerService.getMenuForToday();
+        return vendorService.getTodayMenuByVendorId(vendorId);
+    }
+
+    @GetMapping("/available-vendors")
+    public List<VendorDTO> getAvailableVendors(){
+        return vendorService.getAllVendors();
     }
 
 }

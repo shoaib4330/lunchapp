@@ -39,6 +39,9 @@ public class CustomerService implements ICustomerService {
     private OfficeBoyRepository officeBoyRepository;
 
     @Autowired
+    private VendorRepository vendorRepository;
+
+    @Autowired
     private OrderRepository orderRepository;
 
     @Autowired
@@ -52,10 +55,14 @@ public class CustomerService implements ICustomerService {
     public OrderDto placeOrder(CreateOrderDto createOrderDto) {
         CommonUtils.checkRequiredField(createOrderDto.getCustomerId());
         CommonUtils.checkRequiredField(createOrderDto.getOfficeBoyId());
+        CommonUtils.checkRequiredField(createOrderDto.getVendorId());
         CommonUtils.checkRequiredField(createOrderDto.getFoodItems().size());
 
         Customer customer = customerRepository.findById(createOrderDto.getCustomerId())
                 .orElseThrow(()->new ApplicationException("Customer not Found With ID: " + createOrderDto.getCustomerId()));
+
+        Vendor vendor = vendorRepository.findById(createOrderDto.getVendorId())
+                .orElseThrow(()->new ApplicationException("Vendor not Found With ID: " + createOrderDto.getVendorId()));
 
         OfficeBoy officeBoy = officeBoyRepository.findById(createOrderDto.getOfficeBoyId())
                 .orElseThrow(()-> new ApplicationException("OfficeBoy not found with ID: "+createOrderDto.getOfficeBoyId()));
@@ -63,11 +70,11 @@ public class CustomerService implements ICustomerService {
         List<FoodItem> foodItems = new ArrayList<>();
         createOrderDto.getFoodItems()
                 .forEach(f->{
-                    foodItems.add(foodItemRepository.findByFoodItemIdAndQuantityGreaterThan(f,0)
+                    foodItems.add(foodItemRepository.findByFoodItemIdAndQuantityGreaterThanAndVendor(f,0,vendor)
                             .orElseThrow(()-> new ApplicationException("FoodItem with ID: " + f + " Not Available")));}
                 );
 
-        final Order order = Order.builder().customer(customer).orderStatus(OrderStatus.PENDING.value()).officeBoy(officeBoy).build();
+        final Order order = Order.builder().customer(customer).orderStatus(OrderStatus.PENDING.value()).vendorId(vendor.getId()).officeBoy(officeBoy).build();
         List<OrderItem> orderItems = new ArrayList<>();
         Integer bill = 0;
         foodItems.forEach(f->
@@ -159,8 +166,4 @@ public class CustomerService implements ICustomerService {
         transactionRepository.save(transaction);
     }
 
-    @Override
-    public List <FoodItemDTO> getMenuForToday() {
-        return foodItemMapper.mapToDtoList(foodItemRepository.getMenuForToday());
-    }
 }

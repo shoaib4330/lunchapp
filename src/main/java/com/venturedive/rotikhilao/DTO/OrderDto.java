@@ -11,7 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OrderDto {
-    private long id;
+    private Long id;
+    private Long officeBoyId;
+    private Long vendorId;
     private Integer bill;
     private String customerName;
     private Long orderStatus;

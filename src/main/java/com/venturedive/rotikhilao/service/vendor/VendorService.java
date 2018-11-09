@@ -98,6 +98,11 @@ public class VendorService implements IVendorService {
     }
 
     @Override
+    public List <FoodItemDTO> getTodayMenuByVendorId(Long VendorId) {
+        return foodItemMapper.mapToDtoList(foodItemRepository.getMenuForTodayByVendorId(VendorId));
+    }
+
+    @Override
     public FoodItemDTO addFoodItem(CreateFoodItemDto createFoodItemDto) {
         CommonUtils.checkRequiredField(createFoodItemDto.getVendorId());
         CommonUtils.checkRequiredField(createFoodItemDto.getTitle());
